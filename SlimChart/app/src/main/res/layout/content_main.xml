@@ -18,6 +18,7 @@
         app:roundedEdges="true"
         app:text="234"
         app:strokeWidth="8dp"
+        app:textColor="@color/colorAccent"
         android:text="Hello World!"
         android:layout_width="wrap_content"
         android:id="@+id/slimChart"

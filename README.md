@@ -12,6 +12,7 @@ Using SlimChart you will be able to create a stylish chart for your stats
 **xml:**
 ```xml
 <com.mancj.slimchart.SlimChart
+        app:textColor="@color/colorAccent"
         app:roundedEdges="true"
         app:text="234kg"
         app:strokeWidth="8dp"
@@ -52,6 +53,7 @@ Using SlimChart you will be able to create a stylish chart for your stats
 
         slimChart.setStrokeWidth(13);
         slimChart.setText("234");
+        slimChart.setTextColor(Color.WHITE);
         slimChart.setRoundEdges(true);
     }
 ```

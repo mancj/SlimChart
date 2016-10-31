@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         colors[1] = Color.rgb(127, 22, 101);
         colors[2] = Color.rgb(217, 3, 104);
         colors[3] = Color.rgb(247, 76, 110);
-        slimChart.setColors(colors);
+//        slimChart.setColors(colors);
 
         //Create array for your stats
         final float[] stats = new float[4];
@@ -47,7 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
         slimChart.setStrokeWidth(13);
         slimChart.setText("234");
+        slimChart.setTextColor(Color.WHITE);
         slimChart.setRoundEdges(true);
+
     }
 
     @Override

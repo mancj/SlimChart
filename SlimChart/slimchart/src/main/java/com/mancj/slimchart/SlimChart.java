@@ -16,6 +16,7 @@ import android.view.animation.DecelerateInterpolator;
 
 public class SlimChart extends View {
     private static final float DEFAULT_SIZE = 100;
+    private static final float FULL_CIRCLE_ANGLE = 360f;
     private int strokeWidth = 6;
     private RectF chartRect;
     private int[] colors;
@@ -27,32 +28,34 @@ public class SlimChart extends View {
     private float density;
     private boolean roundEdges;
     private int animDuration = 1000;
+    private int textColor;
 
     public SlimChart(Context context) {
         super(context);
-        init(context, null);
+        init(null);
     }
 
     public SlimChart(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
+        init(attrs);
     }
 
     public SlimChart(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init(attrs);
     }
 
-    private void init(Context context, AttributeSet attrs){
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SlimChart);
+    private void init(AttributeSet attrs){
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SlimChart);
 
-        this.density = context.getResources().getDisplayMetrics().density;
+        this.density = getContext().getResources().getDisplayMetrics().density;
         this.defaultSize = (int) (DEFAULT_SIZE * density);
         this.strokeWidth = (int) typedArray.getDimension(R.styleable.SlimChart_strokeWidth, strokeWidth * density);
         this.roundEdges = typedArray.getBoolean(R.styleable.SlimChart_roundedEdges, false);
         this.text = typedArray.getString(R.styleable.SlimChart_text);
+        this.textColor = typedArray.getColor(R.styleable.SlimChart_textColor, Color.WHITE);
 
-        int defColor = ContextCompat.getColor(context, R.color.colorAccent);
+        int defColor = ContextCompat.getColor(getContext(), R.color.colorAccent);
         this.color = typedArray.getColor(R.styleable.SlimChart_defaultColor, defColor);
 
         typedArray.recycle();
@@ -126,14 +129,19 @@ public class SlimChart extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (int i = 0; i < stats.length; i++) {
-            if (colors == null)
-            {
-                colors = createColors();
+        if (stats != null)
+        {
+            for (int i = 0; i < stats.length; i++) {
+                if (colors == null)
+                {
+                    colors = createColors();
+                }
+                drawChart(canvas, colors[i], calculatePercents(FULL_CIRCLE_ANGLE, stats[i]));
             }
-            drawChart(canvas, colors[i], calculatePercents(360f, stats[i]));
+        }else {
+            drawChart(canvas, color, calculatePercents(FULL_CIRCLE_ANGLE, 100));
         }
-        createColors();
+//        createColors();
         drawText(canvas);
     }
 
@@ -157,7 +165,7 @@ public class SlimChart extends View {
             return;
         }
         Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
+        paint.setColor(textColor);
         paint.setAntiAlias(true);
         paint.setTextSize(chartRect.height()/3);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -190,13 +198,25 @@ public class SlimChart extends View {
         invalidate();
     }
 
+    public boolean isRoundEdgesEnabled() {
+        return roundEdges;
+    }
+
     public void setStats(float[] stats) {
         this.stats = stats;
         invalidate();
     }
 
+    public float[] getStats() {
+        return stats;
+    }
+
     public void setColors(int[] colors) {
         this.colors = colors;
+    }
+
+    public int[] getColors() {
+        return colors;
     }
 
     public void setColor(int color) {
@@ -205,13 +225,34 @@ public class SlimChart extends View {
         invalidate();
     }
 
+    public int getColor() {
+        return color;
+    }
+
     public void setStrokeWidth(int strokeWidth) {
         this.strokeWidth = (int) (strokeWidth * density);
         invalidate();
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public int getStrokeWidth() {
+        return strokeWidth;
     }
 
+    public void setText(String text) {
+        this.text = text;
+        invalidate();
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setTextColor(int textColorResId) {
+        this.textColor = ContextCompat.getColor(getContext(), textColorResId);
+        invalidate();
+    }
+
+    public int getTextColor() {
+        return textColor;
+    }
 }
