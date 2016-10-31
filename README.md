@@ -1,4 +1,4 @@
-<img src="https://github.com/mancj/SlimChart/blob/master/art/logo.png" width="100"> 
+<img src="https://github.com/mancj/SlimChart/blob/master/art/app_logo.png" width="100"> 
 # SlimChart
 SlimChart is a light and easy to use chart library for Android.
 Using SlimChart you will be able to create a stylish chart for your stats
