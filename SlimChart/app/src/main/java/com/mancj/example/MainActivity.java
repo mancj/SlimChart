@@ -20,49 +20,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        SlimChart slimChart = (SlimChart) findViewById(R.id.slimChart);
 
-        final SlimChart slimChart = (SlimChart) findViewById(R.id.slimChart);
-
+        //Optional - create colors array
         int[] colors = new int[4];
         colors[0] = Color.rgb(46, 41,78);
         colors[1] = Color.rgb(127, 22, 101);
         colors[2] = Color.rgb(217, 3, 104);
         colors[3] = Color.rgb(247, 76, 110);
-
-        final float[] charts = new float[4];
-        slimChart.setCharts(charts);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                charts[0] = 100;
-                charts[1] = 85;
-                charts[2] = 40;
-                charts[3] = 25;
-                slimChart.setStartAnimationDuration(2000);
-                slimChart.setCharts(charts);
-                slimChart.playStartAnimation();
-            }
-        }, 1000);
-
-        slimChart.setCharts(charts);
         slimChart.setColors(colors);
-//        slimChart.setColor(ContextCompat.getColor(this, R.color.colorPrimary));
-//        slimChart.setStrokeWidth(13);
-//        slimChart.setText("234");
-//        slimChart.setRoundEdges(true);
-//        slimChart.playStartAnimation();
 
+        //Create array for your stats
+        final float[] stats = new float[4];
+        stats[0] = 100;
+        stats[1] = 85;
+        stats[2] = 40;
+        stats[3] = 25;
+        slimChart.setStats(stats);
+
+        //Play animation
+        slimChart.setStartAnimationDuration(2000);
+
+        //Set single color - other colors will be generated automatically
+        slimChart.setColor(ContextCompat.getColor(this, R.color.colorPrimary));
+
+        slimChart.setStrokeWidth(13);
+        slimChart.setText("234");
+        slimChart.setRoundEdges(true);
     }
 
     @Override

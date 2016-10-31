@@ -22,7 +22,7 @@ public class SlimChart extends View {
     private int color;
 //    private int chartSize;
     private int defaultSize;
-    private float charts[];
+    private float stats[];
     private String text;
     private float density;
     private boolean roundEdges;
@@ -101,17 +101,17 @@ public class SlimChart extends View {
         ValueAnimator animator = ValueAnimator.ofFloat(from, to);
         animator.setDuration(animDuration);
 
-        final float[] animated = new float[charts.length];
-        for (int i = 0; i < charts.length; i++) {
-            animated[i] = charts[i];
+        final float[] animated = new float[stats.length];
+        for (int i = 0; i < stats.length; i++) {
+            animated[i] = stats[i];
         }
         animator.setInterpolator(new DecelerateInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float val = (float) animation.getAnimatedValue();
-                for (int i = 0; i < charts.length; i++) {
-                    charts[i] = calculatePercents(animated[i], val);
+                for (int i = 0; i < stats.length; i++) {
+                    stats[i] = calculatePercents(animated[i], val);
                 }
                 invalidate();
             }
@@ -126,19 +126,19 @@ public class SlimChart extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (int i = 0; i < charts.length; i++) {
+        for (int i = 0; i < stats.length; i++) {
             if (colors == null)
             {
                 colors = createColors();
             }
-            drawChart(canvas, colors[i], calculatePercents(360f, charts[i]));
+            drawChart(canvas, colors[i], calculatePercents(360f, stats[i]));
         }
         createColors();
         drawText(canvas);
     }
 
     private int[] createColors(){
-        int chartsCount = charts.length;
+        int chartsCount = stats.length;
         float add = .9f / chartsCount;
         int[] colors = new int[chartsCount];
         float[] hsv = new float[3];
@@ -190,8 +190,8 @@ public class SlimChart extends View {
         invalidate();
     }
 
-    public void setCharts(float[] charts) {
-        this.charts = charts;
+    public void setStats(float[] stats) {
+        this.stats = stats;
         invalidate();
     }
 
