@@ -7,6 +7,25 @@ Using SlimChart you will be able to create a stylish chart for your stats
 <img src="https://github.com/mancj/SlimChart/blob/master/art/slim-chart-screencast.gif" width="300"> 
 <img src="https://github.com/mancj/SlimChart/blob/master/art/device-2016-10-31-215202.png" width="300"> 
 
+## To get a SlimChart project into your build:
+
+**Step 1.** Add it in your root build.gradle at the end of repositories:
+```xml 
+allprojects {
+    repositories {
+        ...
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+**Step 2.** Add the dependency
+```xml
+dependencies {
+    compile 'com.github.mancj:SlimChart:0.1.2'
+}
+```
+
+
 ## Usage examples
 
 **xml:**
