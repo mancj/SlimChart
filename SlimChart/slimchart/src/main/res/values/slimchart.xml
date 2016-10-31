@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SlimChart">
+        <attr name="defaultColor" format="color"/>
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="roundedEdges" format="boolean"/>
+        <attr name="text" format="string"/>
+    </declare-styleable>
+</resources>

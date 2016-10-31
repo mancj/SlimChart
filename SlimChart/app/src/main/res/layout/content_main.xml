@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#14172A"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="24dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.mancj.example.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <com.mancj.slimchart.SlimChart
+        app:roundedEdges="true"
+        app:text="234"
+        app:strokeWidth="8dp"
+        android:text="Hello World!"
+        android:layout_width="wrap_content"
+        android:id="@+id/slimChart"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/a"
+        android:text="Material Design Search Bar for Android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/slimChart"
+        android:layout_toEndOf="@+id/slimChart"
+        android:layout_marginLeft="16dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:layout_below="@+id/slimChart"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:tint="#FFF4375F"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/circle"
+            android:id="@+id/imageView3" />
+
+        <TextView
+            android:text="Watch:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:textColor="@android:color/white"
+            android:alpha=".5"
+            android:layout_marginLeft="6dp" />
+
+        <TextView
+            android:text="18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textStyle="normal|bold"
+            android:layout_weight="1"
+            android:layout_marginLeft="4dp" />
+
+        <ImageView
+            android:tint="#FFD1005B"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/circle"
+            android:id="@+id/imageView2" />
+
+        <TextView
+            android:text="Forks:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            android:textColor="@android:color/white"
+            android:alpha=".5"
+            android:layout_marginLeft="6dp" />
+
+        <TextView
+            android:text="91"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textStyle="normal|bold"
+            android:layout_weight="1"
+            android:layout_marginLeft="4dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="#FF72095A"
+            app:srcCompat="@drawable/circle"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/slimChart"
+            android:layout_toEndOf="@+id/slimChart"
+            android:id="@+id/imageView" />
+
+        <TextView
+            android:text="Stars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:textColor="@android:color/white"
+            android:alpha=".5"
+            android:layout_marginLeft="6dp" />
+
+        <TextView
+            android:text="621"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textStyle="normal|bold"
+            android:layout_marginLeft="4dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:fontFamily="sans-serif-light®"
+        android:text="@string/big_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:textColor="@android:color/white"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp" />
+
+</RelativeLayout>
