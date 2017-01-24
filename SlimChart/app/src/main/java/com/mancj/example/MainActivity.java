@@ -2,15 +2,9 @@ package com.mancj.example;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.mancj.slimchart.SlimChart;
 
@@ -29,7 +23,16 @@ public class MainActivity extends AppCompatActivity {
         colors[1] = Color.rgb(127, 22, 101);
         colors[2] = Color.rgb(217, 3, 104);
         colors[3] = Color.rgb(247, 76, 110);
-//        slimChart.setColors(colors);
+        //slimChart.setColors(colors);
+
+        /* Second way to set colors:
+        *
+        * slimChart.setColors(
+        *               Color.rgb(46, 41,78),
+        *               Color.rgb(127, 22, 101),
+        *               Color.rgb(217, 3, 104),
+        *               Color.rgb(247, 76, 110));
+        * */
 
         //Create array for your stats
         final float[] stats = new float[4];
@@ -39,15 +42,20 @@ public class MainActivity extends AppCompatActivity {
         stats[3] = 25;
         slimChart.setStats(stats);
 
+        /* Second way to set stats:
+        *
+        * slimChart.setStats(100, 85, 40, 25);
+        * */
+
         //Play animation
         slimChart.setStartAnimationDuration(2000);
 
         //Set single color - other colors will be generated automatically
-//        slimChart.setColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        //slimChart.setColor(ContextCompat.getColor(this, R.color.colorPrimary));
 
         slimChart.setStrokeWidth(13);
         slimChart.setText("234");
-        slimChart.setTextColor(Color.WHITE);
+        slimChart.setTextColorInt(Color.WHITE);
         slimChart.setRoundEdges(true);
 
     }
