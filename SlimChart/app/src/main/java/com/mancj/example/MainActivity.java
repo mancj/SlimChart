@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         slimChart.setStartAnimationDuration(2000);
 
         //Set single color - other colors will be generated automatically
-        //slimChart.setColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        //slimChart.setColorInt(ContextCompat.getColor(this, R.color.colorPrimary));
 
         slimChart.setStrokeWidth(13);
         slimChart.setText("234");
