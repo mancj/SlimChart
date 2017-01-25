@@ -220,10 +220,14 @@ public class SlimChart extends View {
         return colors;
     }
 
-    public void setColor(int color) {
+    public void setColorInt(@ColorInt int color) {
         this.colors = null;
         this.color = color;
         invalidate();
+    }
+
+    public void setColorRes(@ColorRes int colorResId) {
+        setTextColorInt(ContextCompat.getColor(getContext(), colorResId));
     }
 
     public int getColor() {
