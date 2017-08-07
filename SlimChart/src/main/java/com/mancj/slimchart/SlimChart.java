@@ -35,6 +35,7 @@ public class SlimChart extends View {
     private ArrayList<Integer> colors;
     private float density;
     private boolean roundEdges;
+    private boolean stacked = false;
     private int animDuration = 1000;
     private int textColor;
     private ArrayList<Float> stats;
@@ -203,6 +204,15 @@ public class SlimChart extends View {
     public void setStats(ArrayList<Float> stats) {
         Collections.sort(stats, Collections.<Float>reverseOrder());
         this.stats = stats;
+        if (stacked)
+        {
+            Float statCounter = 0f;
+            for (int i = this.stats.size() - 1; i >= 0; i--) {
+                Float statHolder = this.stats.get(i);
+                this.stats.set(i, this.stats.get(i) + statCounter);
+                statCounter = statCounter + statHolder;
+            }
+        }
         maxStat = stats.get(0); //First stat is the largest, save for arc calculations.
         invalidate();
     }
@@ -231,6 +241,17 @@ public class SlimChart extends View {
         {
             this.stats.add(stat.getValue());
             this.colors.add(stat.getColor());
+        }
+        if (stacked)
+        {
+            Log.d("Stacked", "True");
+            Float statCounter = 0f;
+            for (int i = this.stats.size() - 1; i >= 0; i--) {
+                Float statHolder = this.stats.get(i);
+                this.stats.set(i, this.stats.get(i) + statCounter);
+                statCounter = statCounter + statHolder;
+                Log.d("StatCounter", String.valueOf(statCounter));
+            }
         }
         maxStat = stats.get(0); //First stat is the largest, save for arc calculations.
         invalidate();
@@ -288,4 +309,7 @@ public class SlimChart extends View {
     public boolean isRoundEdgesEnabled() {
         return roundEdges;
     }
+
+    public void setStacked(boolean stacked) { this.stacked = stacked; invalidate(); }
+    public boolean isStacked() { return stacked; }
 }

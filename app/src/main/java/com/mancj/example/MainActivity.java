@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         stats.add((float) 125);
 //        slimChart.setStats(stats);
 
+        slimChart.setStacked(true);
         ArrayList<Stat> statList = new ArrayList<>();
         statList.add(new Stat((float) 80, Color.rgb(217, 3, 104)));
         statList.add(new Stat((float) 60, Color.rgb(247, 76, 110)));
