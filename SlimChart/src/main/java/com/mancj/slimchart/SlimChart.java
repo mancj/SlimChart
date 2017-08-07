@@ -18,6 +18,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 public class SlimChart extends View {
     private static final float DEFAULT_SIZE = 100;
     private static final float FULL_CIRCLE_ANGLE = 360f;
@@ -27,7 +31,7 @@ public class SlimChart extends View {
     private int color;
 
     private int defaultSize;
-    private float stats[];
+    private ArrayList<Float> stats;
     private String text;
     private float density;
     private boolean roundEdges;
@@ -109,15 +113,14 @@ public class SlimChart extends View {
         ValueAnimator animator = ValueAnimator.ofFloat(from, to);
         animator.setDuration(animDuration);
 
-        final float[] animated = new float[stats.length];
-        System.arraycopy(stats, 0, animated, 0, stats.length);
+        final ArrayList<Float> animated = new ArrayList<>(stats);
         animator.setInterpolator(new DecelerateInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float val = (float) animation.getAnimatedValue();
-                for (int i = 0; i < stats.length; i++) {
-                    stats[i] = calculatePercents(animated[i], val);
+                for (int i = 0; i < stats.size(); i++) {
+                    stats.set(i, calculatePercents(animated.get(i), val));
                 }
                 invalidate();
             }
@@ -135,13 +138,14 @@ public class SlimChart extends View {
         if (stats != null){
             if (colors == null) colors = createColors();
 
-            if (colors.length != stats.length) {
+            if (colors.length != stats.size()) {
                 Log.e("SlimChart", "Stats and colors have different lengths, will be used default colors...");
                 colors = createColors();
             }
 
-            for (int i = 0; i < stats.length; i++) {
-                drawChart(canvas, colors[i], calculatePercents(FULL_CIRCLE_ANGLE, stats[i]));
+            for (int i = 0; i < stats.size(); i++) {
+                drawChart(canvas, colors[i], calculatePercents(FULL_CIRCLE_ANGLE, stats.get(i)));
+                Log.d("Angle", String.valueOf(calculatePercents(FULL_CIRCLE_ANGLE, stats.get(i))));
             }
         }else {
             drawChart(canvas, color, calculatePercents(FULL_CIRCLE_ANGLE, 100));
@@ -149,8 +153,12 @@ public class SlimChart extends View {
         drawText(canvas);
     }
 
+    private float calculatePercents(float a1, float a2){
+        return a1 * a2 / 100;
+    }
+
     private int[] createColors(){
-        int chartsCount = stats.length;
+        int chartsCount = stats.size();
         float add = .9f / chartsCount;
         int[] colors = new int[chartsCount];
         float[] hsv = new float[3];
@@ -178,11 +186,7 @@ public class SlimChart extends View {
         canvas.drawText(text, getWidth()/2-textBounds.right/2, getHeight()/2 + textBounds.height()/2, paint);
     }
 
-    private float calculatePercents(float a1, float a2){
-        return a1 * a2 / 100;
-    }
-
-    private void drawChart(Canvas canvas, int color, float radius){
+    private void drawChart(Canvas canvas, int color, float sweepAngle){
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(color);
@@ -191,7 +195,7 @@ public class SlimChart extends View {
         if (roundEdges){
             paint.setStrokeCap(Paint.Cap.ROUND);
         }
-        canvas.drawArc(chartRect, 90, radius, false, paint);
+        canvas.drawArc(chartRect, 90, sweepAngle, false, paint);
     }
 
     public void setRoundEdges(boolean roundEdges) {
@@ -203,12 +207,13 @@ public class SlimChart extends View {
         return roundEdges;
     }
 
-    public void setStats(float... stats) {
+    public void setStats(ArrayList<Float> stats) {
+        Collections.sort(stats, Collections.<Float>reverseOrder());
         this.stats = stats;
         invalidate();
     }
 
-    public float[] getStats() {
+    public ArrayList<Float> getStats() {
         return stats;
     }
 

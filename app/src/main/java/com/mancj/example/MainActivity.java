@@ -10,6 +10,8 @@ import android.view.View;
 
 import com.mancj.slimchart.SlimChart;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     SlimChart slimChart;
@@ -39,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
         * */
 
         //Create array for your stats
-        final float[] stats = new float[4];
-        stats[0] = 100;
-        stats[1] = 85;
-        stats[2] = 40;
-        stats[3] = 25;
+        ArrayList<Float> stats = new ArrayList<>();
+        stats.add(25f);
+        stats.add(85f);
+        stats.add(100f);
+        stats.add(40f);
         slimChart.setStats(stats);
 
         /* Second way to set stats:
