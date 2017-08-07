@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.mancj.slimchart.SlimChart;
+import com.mancj.slimchart.Stat;
 
 import java.util.ArrayList;
 
@@ -24,11 +25,11 @@ public class MainActivity extends AppCompatActivity {
         slimChart = (SlimChart) findViewById(R.id.slimChart);
 
         //Optional - create colors array
-        int[] colors = new int[4];
-        colors[0] = Color.rgb(46, 41,78);
-        colors[1] = Color.rgb(127, 22, 101);
-        colors[2] = Color.rgb(217, 3, 104);
-        colors[3] = Color.rgb(247, 76, 110);
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.rgb(46, 41,78));
+        colors.add(Color.rgb(127, 22, 101));
+        colors.add(Color.rgb(217, 3, 104));
+        colors.add(Color.rgb(247, 76, 110));
 //        slimChart.setColors(colors);
 
         /* Second way to set colors:
@@ -46,7 +47,14 @@ public class MainActivity extends AppCompatActivity {
         stats.add((float) 60);
         stats.add((float) 150);
         stats.add((float) 125);
-        slimChart.setStats(stats);
+//        slimChart.setStats(stats);
+
+        ArrayList<Stat> statList = new ArrayList<>();
+        statList.add(new Stat((float) 80, Color.rgb(217, 3, 104)));
+        statList.add(new Stat((float) 60, Color.rgb(247, 76, 110)));
+        statList.add(new Stat((float) 150, Color.rgb(46, 41,78)));
+        statList.add(new Stat((float) 125, Color.rgb(127, 22, 101)));
+        slimChart.setStatList(statList);
 
         /* Second way to set stats:
         *

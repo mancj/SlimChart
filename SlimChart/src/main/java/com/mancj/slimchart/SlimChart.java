@@ -20,6 +20,9 @@ import android.view.animation.DecelerateInterpolator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SlimChart extends View {
     private static final float DEFAULT_SIZE = 100;
@@ -205,6 +208,32 @@ public class SlimChart extends View {
     }
     public ArrayList<Float> getStats() {
         return stats;
+    }
+
+    public void setStatList(ArrayList<Stat> statList) {
+        Collections.sort(statList, new Comparator<Stat>() {
+            public int compare(Stat o1, Stat o2) {
+                if (o1.getValue() == null || o2.getValue() == null)
+                    return 0;
+                Float t1 = o1.getValue();
+                Float t2 = o2.getValue();
+                if (t1 > t2)
+                    return -1;
+                else if (t1 < t2)
+                    return 1;
+                else
+                    return 0;
+            }
+        });
+        stats = new ArrayList<>();
+        colors = new ArrayList<>();
+        for (Stat stat : statList)
+        {
+            this.stats.add(stat.getValue());
+            this.colors.add(stat.getColor());
+        }
+        maxStat = stats.get(0); //First stat is the largest, save for arc calculations.
+        invalidate();
     }
 
     public void setColor(ArrayList<Integer> colors) {
