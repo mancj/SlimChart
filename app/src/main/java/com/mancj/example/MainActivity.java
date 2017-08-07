@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         colors[1] = Color.rgb(127, 22, 101);
         colors[2] = Color.rgb(217, 3, 104);
         colors[3] = Color.rgb(247, 76, 110);
-        //slimChart.setColors(colors);
+//        slimChart.setColors(colors);
 
         /* Second way to set colors:
         *
@@ -58,27 +58,5 @@ public class MainActivity extends AppCompatActivity {
         slimChart.setTextColorInt(Color.WHITE);
         slimChart.setRoundEdges(true);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
