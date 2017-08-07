@@ -31,12 +31,13 @@ dependencies {
 **xml:**
 ```xml
 <com.mancj.slimchart.SlimChart
-        app:textColor="@color/colorAccent"
-        app:roundedEdges="true"
-        app:text="234kg"
-        app:strokeWidth="8dp"
+        android:id="@+id/slimChart" 
         android:layout_width="wrap_content"
-        android:id="@+id/slimChart" />
+        android:layout_height="wrap_content"
+        app:text="234kg"
+        app:textColor="@color/colorAccent"
+        app:strokeWidth="8dp"
+        app:roundedEdges="true"/>
 ```
 
 **java:**
