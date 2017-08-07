@@ -42,10 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
         //Create array for your stats
         ArrayList<Float> stats = new ArrayList<>();
-        stats.add(25f);
-        stats.add(85f);
-        stats.add(100f);
-        stats.add(40f);
+        stats.add((float) 80);
+        stats.add((float) 60);
+        stats.add((float) 150);
+        stats.add((float) 125);
         slimChart.setStats(stats);
 
         /* Second way to set stats:

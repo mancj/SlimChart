@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Slim Chart</string>
-    <string name="big_text">This beautiful and easy to use library will help to add Lollipop Material Design SearchView in your project.</string>
+    <string name="big_text">This beautiful and easy to use library will help to add a Material Design Slim Chart to your project.</string>
 </resources>

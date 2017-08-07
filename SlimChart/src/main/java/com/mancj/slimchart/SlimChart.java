@@ -19,24 +19,24 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class SlimChart extends View {
     private static final float DEFAULT_SIZE = 100;
     private static final float FULL_CIRCLE_ANGLE = 360f;
-    private int strokeWidth = 6;
-    private RectF chartRect;
-    private int[] colors;
-    private int color;
 
+    private RectF chartRect;
+    private int strokeWidth = 6;
     private int defaultSize;
-    private ArrayList<Float> stats;
-    private String text;
+    private int color;
+    private int[] colors;
     private float density;
     private boolean roundEdges;
     private int animDuration = 1000;
     private int textColor;
+    private ArrayList<Float> stats;
+    private String text;
+    private float maxStat;
 
     public SlimChart(Context context) {
         this(context, null);
@@ -109,7 +109,7 @@ public class SlimChart extends View {
 
     public void playStartAnimation(){
         float from = 0;
-        float to = 100;
+        float to = 1;
         ValueAnimator animator = ValueAnimator.ofFloat(from, to);
         animator.setDuration(animDuration);
 
@@ -120,7 +120,7 @@ public class SlimChart extends View {
             public void onAnimationUpdate(ValueAnimator animation) {
                 float val = (float) animation.getAnimatedValue();
                 for (int i = 0; i < stats.size(); i++) {
-                    stats.set(i, calculatePercents(animated.get(i), val));
+                    stats.set(i, animated.get(i) * val);
                 }
                 invalidate();
             }
@@ -144,17 +144,16 @@ public class SlimChart extends View {
             }
 
             for (int i = 0; i < stats.size(); i++) {
-                drawChart(canvas, colors[i], calculatePercents(FULL_CIRCLE_ANGLE, stats.get(i)));
-                Log.d("Angle", String.valueOf(calculatePercents(FULL_CIRCLE_ANGLE, stats.get(i))));
+                drawChart(canvas, colors[i], calculatePercents(stats.get(i)));
             }
         }else {
-            drawChart(canvas, color, calculatePercents(FULL_CIRCLE_ANGLE, 100));
+            drawChart(canvas, color, calculatePercents(FULL_CIRCLE_ANGLE));
         }
         drawText(canvas);
     }
 
-    private float calculatePercents(float a1, float a2){
-        return a1 * a2 / 100;
+    private float calculatePercents(float degree){
+        return degree * FULL_CIRCLE_ANGLE / maxStat;
     }
 
     private int[] createColors(){
@@ -186,7 +185,7 @@ public class SlimChart extends View {
         canvas.drawText(text, getWidth()/2-textBounds.right/2, getHeight()/2 + textBounds.height()/2, paint);
     }
 
-    private void drawChart(Canvas canvas, int color, float sweepAngle){
+    private void drawChart(Canvas canvas, int color, float degree){
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(color);
@@ -195,7 +194,7 @@ public class SlimChart extends View {
         if (roundEdges){
             paint.setStrokeCap(Paint.Cap.ROUND);
         }
-        canvas.drawArc(chartRect, 90, sweepAngle, false, paint);
+        canvas.drawArc(chartRect, 90, degree, false, paint);
     }
 
     public void setRoundEdges(boolean roundEdges) {
@@ -210,6 +209,7 @@ public class SlimChart extends View {
     public void setStats(ArrayList<Float> stats) {
         Collections.sort(stats, Collections.<Float>reverseOrder());
         this.stats = stats;
+        maxStat = stats.get(0); //First stat is the largest, save for arc calculations.
         invalidate();
     }
 
