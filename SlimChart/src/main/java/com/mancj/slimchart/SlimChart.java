@@ -197,80 +197,66 @@ public class SlimChart extends View {
         canvas.drawArc(chartRect, 90, degree, false, paint);
     }
 
-    public void setRoundEdges(boolean roundEdges) {
-        this.roundEdges = roundEdges;
-        invalidate();
-    }
-
-    public boolean isRoundEdgesEnabled() {
-        return roundEdges;
-    }
-
     public void setStats(ArrayList<Float> stats) {
         Collections.sort(stats, Collections.<Float>reverseOrder());
         this.stats = stats;
         maxStat = stats.get(0); //First stat is the largest, save for arc calculations.
         invalidate();
     }
-
     public ArrayList<Float> getStats() {
         return stats;
     }
 
-    public void setColors(int... colors) {
+    public void setColor(int... colors) {
         this.colors = colors;
     }
-
-    public int[] getColors() {
-        return colors;
-    }
-
-    public void setColorInt(@ColorInt int color) {
+    public void setColor(@ColorInt int color) {
         this.colors = null;
         this.color = color;
         invalidate();
     }
-
-    public void setColorRes(@ColorRes int colorResId) {
-        setTextColorInt(ContextCompat.getColor(getContext(), colorResId));
-    }
+    public void setColorRes(@ColorRes int colorResId) { setColor(ContextCompat.getColor(getContext(), colorResId)); }
 
     public int getColor() {
         return color;
     }
-
-    public void setStrokeWidth(int strokeWidth) {
-        this.strokeWidth = (int) (strokeWidth * density);
-        invalidate();
-    }
-
-    public int getStrokeWidth() {
-        return strokeWidth;
+    public int[] getColors() {
+        return colors;
     }
 
     public void setText(String text) {
         this.text = text;
         invalidate();
     }
-
     public void setText(@StringRes int textIdRes){
         setText(getContext().getString(textIdRes));
     }
-
     public String getText() {
         return text;
     }
 
-    public void setTextColorInt(@ColorInt int textColorInt) {
+    public void setTextColor(@ColorInt int textColorInt) {
         this.textColor = textColorInt;
         invalidate();
     }
-
-    public void setTextColorRes(@ColorRes int textColorResId){
-        setTextColorInt(ContextCompat.getColor(getContext(), textColorResId));
-    }
-
+    public void setTextColorRes(@ColorRes int textColorResId){ setTextColor(ContextCompat.getColor(getContext(), textColorResId)); }
     public int getTextColor() {
         return textColor;
+    }
+
+    public void setStrokeWidth(int strokeWidth) {
+        this.strokeWidth = (int) (strokeWidth * density);
+        invalidate();
+    }
+    public int getStrokeWidth() {
+        return strokeWidth;
+    }
+
+    public void setRoundEdges(boolean roundEdges) {
+        this.roundEdges = roundEdges;
+        invalidate();
+    }
+    public boolean isRoundEdgesEnabled() {
+        return roundEdges;
     }
 }

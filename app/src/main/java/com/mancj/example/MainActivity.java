@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         slimChart.setStrokeWidth(13);
         slimChart.setText("234");
-        slimChart.setTextColorInt(Color.WHITE);
+        slimChart.setTextColor(Color.WHITE);
         slimChart.setRoundEdges(true);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
