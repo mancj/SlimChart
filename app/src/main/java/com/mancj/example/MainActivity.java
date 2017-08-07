@@ -2,20 +2,24 @@ package com.mancj.example;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.mancj.slimchart.SlimChart;
 
 public class MainActivity extends AppCompatActivity {
+
+    SlimChart slimChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SlimChart slimChart = (SlimChart) findViewById(R.id.slimChart);
+        slimChart = (SlimChart) findViewById(R.id.slimChart);
 
         //Optional - create colors array
         int[] colors = new int[4];
@@ -58,5 +62,12 @@ public class MainActivity extends AppCompatActivity {
         slimChart.setTextColorInt(Color.WHITE);
         slimChart.setRoundEdges(true);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slimChart.playStartAnimation();
+            }
+        });
     }
 }
