@@ -29,7 +29,7 @@ public class SlimChart extends View {
     private int strokeWidth = 6;
     private int defaultSize;
     private int color;
-    private int[] colors;
+    private ArrayList<Integer> colors;
     private float density;
     private boolean roundEdges;
     private int animDuration = 1000;
@@ -138,13 +138,13 @@ public class SlimChart extends View {
         if (stats != null){
             if (colors == null) colors = createColors();
 
-            if (colors.length != stats.size()) {
+            if (colors.size() != stats.size()) {
                 Log.e("SlimChart", "Stats and colors have different lengths, will be used default colors...");
                 colors = createColors();
             }
 
             for (int i = 0; i < stats.size(); i++) {
-                drawChart(canvas, colors[i], calculatePercents(stats.get(i)));
+                drawChart(canvas, colors.get(i), calculatePercents(stats.get(i)));
             }
         }else {
             drawChart(canvas, color, calculatePercents(FULL_CIRCLE_ANGLE));
@@ -156,16 +156,16 @@ public class SlimChart extends View {
         return degree * FULL_CIRCLE_ANGLE / maxStat;
     }
 
-    private int[] createColors(){
+    private ArrayList<Integer> createColors(){
+        ArrayList<Integer> colors = new ArrayList<>();
         int chartsCount = stats.size();
         float add = .9f / chartsCount;
-        int[] colors = new int[chartsCount];
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         hsv[2] = .1f;
         for (int i = 0; i < chartsCount; i++) {
             hsv[2] += add;
-            colors[i] = Color.HSVToColor(hsv);
+            colors.add(Color.HSVToColor(hsv));
         }
         return colors;
     }
@@ -207,7 +207,7 @@ public class SlimChart extends View {
         return stats;
     }
 
-    public void setColor(int... colors) {
+    public void setColor(ArrayList<Integer> colors) {
         this.colors = colors;
     }
     public void setColor(@ColorInt int color) {
@@ -220,7 +220,7 @@ public class SlimChart extends View {
     public int getColor() {
         return color;
     }
-    public int[] getColors() {
+    public ArrayList<Integer> getColors() {
         return colors;
     }
 
