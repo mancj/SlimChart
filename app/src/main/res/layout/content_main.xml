@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_main"
@@ -10,7 +11,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="24dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.mancj.example.MainActivity"
     tools:showIn="@layout/activity_main">
 
@@ -29,7 +29,7 @@
 
     <TextView
         android:id="@+id/a"
-        android:text="Material Design Search Bar for Android"
+        android:text="Material Design Slim Chart for Android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"

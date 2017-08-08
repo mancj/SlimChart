@@ -18,21 +18,29 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class SlimChart extends View {
     private static final float DEFAULT_SIZE = 100;
     private static final float FULL_CIRCLE_ANGLE = 360f;
-    private int strokeWidth = 6;
-    private RectF chartRect;
-    private int[] colors;
-    private int color;
 
+    private RectF chartRect;
+    private int strokeWidth = 6;
     private int defaultSize;
-    private float stats[];
-    private String text;
+    private int color;
+    private ArrayList<Integer> colors;
     private float density;
     private boolean roundEdges;
+    private boolean stacked = false;
     private int animDuration = 1000;
     private int textColor;
+    private ArrayList<Float> stats;
+    private String text;
+    private float maxStat;
 
     public SlimChart(Context context) {
         this(context, null);
@@ -105,19 +113,18 @@ public class SlimChart extends View {
 
     public void playStartAnimation(){
         float from = 0;
-        float to = 100;
+        float to = 1;
         ValueAnimator animator = ValueAnimator.ofFloat(from, to);
         animator.setDuration(animDuration);
 
-        final float[] animated = new float[stats.length];
-        System.arraycopy(stats, 0, animated, 0, stats.length);
+        final ArrayList<Float> animated = new ArrayList<>(stats);
         animator.setInterpolator(new DecelerateInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float val = (float) animation.getAnimatedValue();
-                for (int i = 0; i < stats.length; i++) {
-                    stats[i] = calculatePercents(animated[i], val);
+                for (int i = 0; i < stats.size(); i++) {
+                    stats.set(i, animated.get(i) * val);
                 }
                 invalidate();
             }
@@ -135,30 +142,34 @@ public class SlimChart extends View {
         if (stats != null){
             if (colors == null) colors = createColors();
 
-            if (colors.length != stats.length) {
+            if (colors.size() != stats.size()) {
                 Log.e("SlimChart", "Stats and colors have different lengths, will be used default colors...");
                 colors = createColors();
             }
 
-            for (int i = 0; i < stats.length; i++) {
-                drawChart(canvas, colors[i], calculatePercents(FULL_CIRCLE_ANGLE, stats[i]));
+            for (int i = 0; i < stats.size(); i++) {
+                drawChart(canvas, colors.get(i), calculatePercents(stats.get(i)));
             }
         }else {
-            drawChart(canvas, color, calculatePercents(FULL_CIRCLE_ANGLE, 100));
+            drawChart(canvas, color, calculatePercents(FULL_CIRCLE_ANGLE));
         }
         drawText(canvas);
     }
 
-    private int[] createColors(){
-        int chartsCount = stats.length;
+    private float calculatePercents(float degree){
+        return degree * FULL_CIRCLE_ANGLE / maxStat;
+    }
+
+    private ArrayList<Integer> createColors(){
+        ArrayList<Integer> colors = new ArrayList<>();
+        int chartsCount = stats.size();
         float add = .9f / chartsCount;
-        int[] colors = new int[chartsCount];
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         hsv[2] = .1f;
         for (int i = 0; i < chartsCount; i++) {
             hsv[2] += add;
-            colors[i] = Color.HSVToColor(hsv);
+            colors.add(Color.HSVToColor(hsv));
         }
         return colors;
     }
@@ -178,11 +189,7 @@ public class SlimChart extends View {
         canvas.drawText(text, getWidth()/2-textBounds.right/2, getHeight()/2 + textBounds.height()/2, paint);
     }
 
-    private float calculatePercents(float a1, float a2){
-        return a1 * a2 / 100;
-    }
-
-    private void drawChart(Canvas canvas, int color, float radius){
+    private void drawChart(Canvas canvas, int color, float degree){
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(color);
@@ -191,81 +198,118 @@ public class SlimChart extends View {
         if (roundEdges){
             paint.setStrokeCap(Paint.Cap.ROUND);
         }
-        canvas.drawArc(chartRect, 90, radius, false, paint);
+        canvas.drawArc(chartRect, 90, degree, false, paint);
     }
 
-    public void setRoundEdges(boolean roundEdges) {
-        this.roundEdges = roundEdges;
-        invalidate();
-    }
-
-    public boolean isRoundEdgesEnabled() {
-        return roundEdges;
-    }
-
-    public void setStats(float... stats) {
+    public void setStats(ArrayList<Float> stats) {
+        Collections.sort(stats, Collections.<Float>reverseOrder());
         this.stats = stats;
+        if (stacked)
+        {
+            Float statCounter = 0f;
+            for (int i = this.stats.size() - 1; i >= 0; i--) {
+                Float statHolder = this.stats.get(i);
+                this.stats.set(i, this.stats.get(i) + statCounter);
+                statCounter = statCounter + statHolder;
+            }
+        }
+        maxStat = stats.get(0); //First stat is the largest, save for arc calculations.
         invalidate();
     }
-
-    public float[] getStats() {
+    public ArrayList<Float> getStats() {
         return stats;
     }
 
-    public void setColors(int... colors) {
+    public void setStatList(ArrayList<Stat> statList) {
+        Collections.sort(statList, new Comparator<Stat>() {
+            public int compare(Stat o1, Stat o2) {
+                if (o1.getValue() == null || o2.getValue() == null)
+                    return 0;
+                Float t1 = o1.getValue();
+                Float t2 = o2.getValue();
+                if (t1 > t2)
+                    return -1;
+                else if (t1 < t2)
+                    return 1;
+                else
+                    return 0;
+            }
+        });
+        stats = new ArrayList<>();
+        colors = new ArrayList<>();
+        for (Stat stat : statList)
+        {
+            this.stats.add(stat.getValue());
+            this.colors.add(stat.getColor());
+        }
+        if (stacked)
+        {
+            Log.d("Stacked", "True");
+            Float statCounter = 0f;
+            for (int i = this.stats.size() - 1; i >= 0; i--) {
+                Float statHolder = this.stats.get(i);
+                this.stats.set(i, this.stats.get(i) + statCounter);
+                statCounter = statCounter + statHolder;
+                Log.d("StatCounter", String.valueOf(statCounter));
+            }
+        }
+        maxStat = stats.get(0); //First stat is the largest, save for arc calculations.
+        invalidate();
+    }
+
+    public void setColor(ArrayList<Integer> colors) {
         this.colors = colors;
     }
-
-    public int[] getColors() {
-        return colors;
-    }
-
-    public void setColorInt(@ColorInt int color) {
+    public void setColor(@ColorInt int color) {
         this.colors = null;
         this.color = color;
         invalidate();
     }
-
-    public void setColorRes(@ColorRes int colorResId) {
-        setTextColorInt(ContextCompat.getColor(getContext(), colorResId));
-    }
+    public void setColorRes(@ColorRes int colorResId) { setColor(ContextCompat.getColor(getContext(), colorResId)); }
 
     public int getColor() {
         return color;
     }
-
-    public void setStrokeWidth(int strokeWidth) {
-        this.strokeWidth = (int) (strokeWidth * density);
-        invalidate();
-    }
-
-    public int getStrokeWidth() {
-        return strokeWidth;
+    public ArrayList<Integer> getColors() {
+        return colors;
     }
 
     public void setText(String text) {
         this.text = text;
         invalidate();
     }
-
     public void setText(@StringRes int textIdRes){
         setText(getContext().getString(textIdRes));
     }
-
     public String getText() {
         return text;
     }
 
-    public void setTextColorInt(@ColorInt int textColorInt) {
+    public void setTextColor(@ColorInt int textColorInt) {
         this.textColor = textColorInt;
         invalidate();
     }
-
-    public void setTextColorRes(@ColorRes int textColorResId){
-        setTextColorInt(ContextCompat.getColor(getContext(), textColorResId));
-    }
-
+    public void setTextColorRes(@ColorRes int textColorResId){ setTextColor(ContextCompat.getColor(getContext(), textColorResId)); }
     public int getTextColor() {
         return textColor;
     }
+
+    public void setStrokeWidth(int strokeWidth) {
+        this.strokeWidth = (int) (strokeWidth * density);
+        invalidate();
+    }
+    public int getStrokeWidth() {
+        return strokeWidth;
+    }
+
+    public void setRoundEdges(boolean roundEdges) {
+        this.roundEdges = roundEdges;
+        invalidate();
+    }
+    public boolean isRoundEdgesEnabled() {
+        return roundEdges;
+    }
+
+    public void setStacked(boolean stacked) { this.stacked = stacked; invalidate(); }
+    public boolean isStacked() { return stacked; }
 }
