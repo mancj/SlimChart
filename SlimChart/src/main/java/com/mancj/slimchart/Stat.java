@@ -5,7 +5,7 @@ public class Stat {
     Float s_value;
     Integer s_color;
 
-    public Stat() {};
+    public Stat() {}
 
     public Stat(Float value, Integer color) {
         s_value = value;

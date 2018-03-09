@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:id="@+id/a"
@@ -37,7 +37,7 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/slimChart"
         android:layout_toEndOf="@+id/slimChart"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginLeft="16dp"/>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/circle"
-            android:id="@+id/imageView3" />
+            android:id="@+id/imageView3"/>
 
         <TextView
             android:text="Watch:"
@@ -63,7 +63,7 @@
             android:id="@+id/textView4"
             android:textColor="@android:color/white"
             android:alpha=".5"
-            android:layout_marginLeft="6dp" />
+            android:layout_marginLeft="6dp"/>
 
         <TextView
             android:text="18"
@@ -72,14 +72,14 @@
             android:textColor="@android:color/white"
             android:textStyle="normal|bold"
             android:layout_weight="1"
-            android:layout_marginLeft="4dp" />
+            android:layout_marginLeft="4dp"/>
 
         <ImageView
             android:tint="#FFD1005B"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/circle"
-            android:id="@+id/imageView2" />
+            android:id="@+id/imageView2"/>
 
         <TextView
             android:text="Forks:"
@@ -88,7 +88,7 @@
             android:id="@+id/textView3"
             android:textColor="@android:color/white"
             android:alpha=".5"
-            android:layout_marginLeft="6dp" />
+            android:layout_marginLeft="6dp"/>
 
         <TextView
             android:text="91"
@@ -97,7 +97,7 @@
             android:textColor="@android:color/white"
             android:textStyle="normal|bold"
             android:layout_weight="1"
-            android:layout_marginLeft="4dp" />
+            android:layout_marginLeft="4dp"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/slimChart"
             android:layout_toEndOf="@+id/slimChart"
-            android:id="@+id/imageView" />
+            android:id="@+id/imageView"/>
 
         <TextView
             android:text="Stars"
@@ -116,7 +116,7 @@
             android:id="@+id/textView2"
             android:textColor="@android:color/white"
             android:alpha=".5"
-            android:layout_marginLeft="6dp" />
+            android:layout_marginLeft="6dp"/>
 
         <TextView
             android:text="621"
@@ -124,7 +124,7 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:textStyle="normal|bold"
-            android:layout_marginLeft="4dp" />
+            android:layout_marginLeft="4dp"/>
 
     </LinearLayout>
 
@@ -139,6 +139,6 @@
         android:layout_below="@+id/linearLayout2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"/>
 
 </RelativeLayout>
