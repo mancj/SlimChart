@@ -2,14 +2,15 @@ package com.mancj.example;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mancj.slimchart.SlimChart;
 import com.mancj.slimchart.Stat;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,13 +32,13 @@ public class MainActivity extends AppCompatActivity {
 //        slimChart.setColors(colors);
 
         /* Second way to set colors:
-        *
-        * slimChart.setColors(
-        *               Color.rgb(46, 41,78),
-        *               Color.rgb(127, 22, 101),
-        *               Color.rgb(217, 3, 104),
-        *               Color.rgb(247, 76, 110));
-        * */
+         *
+         * slimChart.setColors(
+         *               Color.rgb(46, 41,78),
+         *               Color.rgb(127, 22, 101),
+         *               Color.rgb(217, 3, 104),
+         *               Color.rgb(247, 76, 110));
+         * */
 
         //Create array for your stats
         ArrayList<Float> stats = new ArrayList<>();
@@ -56,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
         slimChart.setStatList(statList);
 
         /* Second way to set stats:
-        *
-        * slimChart.setStats(100, 85, 40, 25);
-        * */
+         *
+         * slimChart.setStats(100, 85, 40, 25);
+         * */
 
         //Play animation
         slimChart.setStartAnimationDuration(2000);
