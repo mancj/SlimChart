@@ -7,138 +7,138 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#14172A"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="24dp"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.mancj.example.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <com.mancj.slimchart.SlimChart
-        app:roundedEdges="true"
-        app:text="234"
-        app:strokeWidth="8dp"
-        app:textColor="@color/colorAccent"
-        android:text="Hello World!"
-        android:layout_width="wrap_content"
         android:id="@+id/slimChart"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentTop="true"
+        android:text="Hello World!"
+        app:roundedEdges="true"
+        app:strokeWidth="8dp"
+        app:text="234"
+        app:textColor="@color/colorAccent"/>
 
     <TextView
         android:id="@+id/a"
-        android:text="Material Design Slim Chart for Android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
-        android:layout_marginTop="25dp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/slimChart"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="25dp"
         android:layout_toEndOf="@+id/slimChart"
-        android:layout_marginLeft="16dp"/>
+        android:layout_toRightOf="@+id/slimChart"
+        android:text="Material Design Slim Chart for Android"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"/>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:layout_below="@+id/slimChart"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:layout_below="@+id/slimChart"
-        android:layout_centerHorizontal="true">
+        android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:tint="#FFF4375F"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/circle"
-            android:id="@+id/imageView3"/>
+            app:srcCompat="@drawable/circle"/>
 
         <TextView
-            android:text="Watch:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/textView4"
-            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
             android:alpha=".5"
-            android:layout_marginLeft="6dp"/>
+            android:text="Watch:"
+            android:textColor="@android:color/white"/>
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="1"
             android:text="18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:textStyle="normal|bold"
-            android:layout_weight="1"
-            android:layout_marginLeft="4dp"/>
+            android:textStyle="normal|bold"/>
 
         <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:tint="#FFD1005B"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/circle"
-            android:id="@+id/imageView2"/>
+            app:srcCompat="@drawable/circle"/>
 
         <TextView
-            android:text="Forks:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/textView3"
-            android:textColor="@android:color/white"
-            android:alpha=".5"
-            android:layout_marginLeft="6dp"/>
-
-        <TextView
-            android:text="91"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textStyle="normal|bold"
+            android:layout_marginLeft="6dp"
+            android:alpha=".5"
+            android:text="Forks:"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
             android:layout_weight="1"
-            android:layout_marginLeft="4dp"/>
+            android:text="91"
+            android:textColor="@android:color/white"
+            android:textStyle="normal|bold"/>
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:tint="#FF72095A"
-            app:srcCompat="@drawable/circle"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/slimChart"
             android:layout_toEndOf="@+id/slimChart"
-            android:id="@+id/imageView"/>
+            android:layout_toRightOf="@+id/slimChart"
+            android:tint="#FF72095A"
+            app:srcCompat="@drawable/circle"/>
 
         <TextView
-            android:text="Stars"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/textView2"
-            android:textColor="@android:color/white"
-            android:alpha=".5"
-            android:layout_marginLeft="6dp"/>
-
-        <TextView
-            android:text="621"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:alpha=".5"
+            android:text="Stars"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="621"
             android:textColor="@android:color/white"
-            android:textStyle="normal|bold"
-            android:layout_marginLeft="4dp"/>
+            android:textStyle="normal|bold"/>
 
     </LinearLayout>
 
     <TextView
-        android:fontFamily="sans-serif-light®"
-        android:text="@string/big_text"
+        android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:textColor="@android:color/white"
-        android:gravity="center_horizontal"
         android:layout_below="@+id/linearLayout2"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"/>
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-light®"
+        android:gravity="center_horizontal"
+        android:text="@string/big_text"
+        android:textColor="@android:color/white"/>
 
 </RelativeLayout>
